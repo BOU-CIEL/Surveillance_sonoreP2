@@ -44,4 +44,6 @@ private:
     i2s_config_t i2sConfig;
     i2s_pin_config_t pinConfig;
     ArduinoFFT<double> FFT; 
+    size_t bytesRead;
+    int32_t i2sData[SAMPLES];
 };
