@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../../TP MB/TP2/test_Danger_Sparkfun"
+		},
+		{
+			"name": "danger_tinker",
+			"path": "../../TP MB/TP2/danger_tinker"
+		},
+		{
+			"name": "danger_PC",
+			"path": "../../TP MB/TP2/danger_PC"
+		},
+		{
+			"name": "Danger_com_serie",
+			"path": "../../TP MB/TP2/Danger_com_serie"
+		}
+	],
+	"settings": {}
+}
