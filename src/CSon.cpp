@@ -19,10 +19,10 @@ CSon::CSon()
 
 
     this->pinCconfig = { 
-        .bck_io_num = 14,   // Numéro de broche pour le signal de l'horloge de la base (Bit Clock)
-        .ws_io_num = 13,    // Numéro de broche pour le signal de sélection de mot (Word Select)
-        .data_out_num = I2S_PIN_NO_CHANGE, // Pas de data out 
-        .data_in_num = 12   // Numéro de broche pour l'entrée des données (Data In)
+    .bck_io_num = 14,   // Numéro de broche pour le signal de l'horloge de la base (Bit Clock)
+    .ws_io_num = 13,    // Numéro de broche pour le signal de sélection de mot (Word Select)
+    .data_out_num = I2S_PIN_NO_CHANGE, // Pas de data out 
+    .data_in_num = 12   // Numéro de broche pour l'entrée des données (Data In)
     }; 
     
 
@@ -42,3 +42,12 @@ CSon::CSon()
 
     this->FFT = ArduinoFFT<double>(this->vReal, this->vImag, SAMPLES, SAMPLING_FREQUENCY); 
 }
+
+CSon::Setup()
+{
+    int result = i2s_driver_install(I2S_NUM_0, &this->i2sConfig, 0, NULL); 
+      result = i2s_set_pin(I2S_NUM_0, &this->pinCconfig); 
+      result = i2s_zero_dma_buffer(I2S_NUM_0); 
+      return result; 
+}
+    

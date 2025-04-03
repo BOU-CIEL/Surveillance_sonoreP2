@@ -23,10 +23,6 @@ public:
     float vReal[SAMPLES];
     float vImag[SAMPLES];
 
-    i2s_config_t i2sConfig;
-    i2s_pin_config_t pinConfig;
-    ArduinoFFT<double> FFT;
-
     CSon();
     /**
      * @brief Fonction pour démarrer l'acquisition des échantillons via I2S.
