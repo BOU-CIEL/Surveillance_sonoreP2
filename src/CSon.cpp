@@ -50,4 +50,31 @@ CSon::Setup()
       result = i2s_zero_dma_buffer(I2S_NUM_0); 
       return result; 
 }
+
+esp_err_t CSon::SamplesDmaAcquisition() 
+{ 
+    // Nombre d'octets lus en mémoire DMA 
+    size_t bytesRead; 
+    // Capture des données audio 
+    result = i2s_read(I2S_NUM_0, &this->i2sData, sizeof(this->i2sData), &bytesRead, portMAX_DELAY); 
+   
+    if (result == ESP_OK) 
+    { 
+        int16_t samplesRead = bytesRead / 4; // Conversion des octets lus en nombre d'échantillons (chaque échantillon est sur 4 octets : 2 canaux de 16 bits).
+        if (samplesRead > 0)  
+        { 
+            float mean = 0; 
+            for (int16_t i = 0; i < samplesRead; ++i)  
+            { 
+                i2sData[i] = i2sData[i] >> 8;  // Réduction de la résolution des échantillons (passage de 16 bits à 8 bits pour simplifier le traitement).
+                mean += abs(i2sData[i]); 
+                if (abs(i2sData[i]) > niveauSonoreCrete) 
+                    niveauSonoreCrete = abs(i2sData[i]); // Mise à jour du niveau sonore crête si un échantillon dépasse la valeur actuelle.
+            } 
+            this->niveauSonoreMoyen = mean / samplesRead; // Calcul du niveau sonore moyen en divisant la somme des amplitudes par le nombre d'échantillons.
+        }     
+    } 
+    return result; 
+}
+
     
